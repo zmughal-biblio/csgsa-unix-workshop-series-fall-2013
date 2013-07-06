@@ -17,6 +17,9 @@ filesystem
 		df, du
 	man pages
 	users/groups + permissions
+		root user
+			su
+			sudo
 		whoami, w
 		chmod
 		chown
