@@ -91,6 +91,7 @@ development
 	od, xxd
 	valgrind
 	time
+	cscope, ctags
 
 bonus
 	units
