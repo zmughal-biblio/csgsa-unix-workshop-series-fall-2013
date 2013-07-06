@@ -1,0 +1,112 @@
+filesystem
+	concepts
+		files, directories, hard links, symlinks
+		inodes
+	commands
+		echo "Hello, world!"
+		ls
+		cd
+			pwd
+		mkdir
+		touch
+		cat
+		ln
+		cp
+		mv
+		rm, rmdir
+		df, du
+	man pages
+	users/groups + permissions
+		whoami, w
+		chmod
+		chown
+
+processes
+	foreground/background
+	job control
+	exit values
+	multiple command sequence
+	sleep
+	top
+	ps
+	kill
+	environment variables
+	$PATH
+		which
+	screen
+	bash alias and .bashrc
+		: side-note, you can disable it by putting a \ in front of command
+
+I/O redirection
+	file redirection
+		/dev/null
+	pipes
+		wc
+		grep
+			regex?
+		shuf
+		less
+		head, tail
+		sort, uniq
+
+advanced scripting
+	script files and shebang
+		: line continuation
+	readline shortcuts
+	backticks
+	watch
+	pushd, popd
+	find
+	locate
+	xargs
+	sed, awk, perl
+	ack
+	bash functions
+	while, for
+
+network
+	ssh, sftp, sshfs
+	rsync
+		unison
+	wget
+	ping, dig
+
+vi
+
+development
+	compiler
+	man pages again [for libc/POSIX]
+	make
+	debugger
+	strace
+	lsof
+	ldd
+	git
+	diff
+	strings
+	file
+	od, xxd
+	valgrind
+	time
+
+bonus
+	units
+	bc
+	dict
+	date, cal
+	rename
+	pgrep, pkill, killall
+	xclip
+		pbcopy [for Mac OS X]
+	sloccount
+	atools
+	fortune
+	pdftotext
+	gnuplot
+	timeout
+
+stuff that may be outside scope
+	dd
+	mount
+	cut
+	tar, unzip, etc.
