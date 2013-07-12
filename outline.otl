@@ -81,6 +81,8 @@ development
 	man pages again [for libc/POSIX]
 	make
 	debugger
+	gprof
+	cflow
 	strace
 	lsof
 	ldd
