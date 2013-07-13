@@ -56,7 +56,12 @@ advanced scripting
 	script files and shebang
 		: line continuation
 	readline shortcuts
-	backticks
+	command substitution
+		$()
+		backticks
+	process substitution
+		<()
+		>()
 	watch
 	pushd, popd
 	find
