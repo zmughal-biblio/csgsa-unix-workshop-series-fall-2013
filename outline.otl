@@ -65,6 +65,8 @@ advanced scripting
 	watch
 	pushd, popd
 	find
+		: -type
+		: -exec
 	locate
 	xargs
 	sed, awk, perl
