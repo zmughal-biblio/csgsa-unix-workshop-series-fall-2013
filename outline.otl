@@ -123,3 +123,5 @@ stuff that may be outside scope
 	mount
 	cut
 	tar, unzip, etc.
+	passwd
+	apt-get?
