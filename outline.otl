@@ -27,6 +27,9 @@ filesystem
 processes
 	foreground/background
 	job control
+		Ctrl-Z
+		fg
+		bg
 	exit values
 	multiple command sequence
 	sleep
