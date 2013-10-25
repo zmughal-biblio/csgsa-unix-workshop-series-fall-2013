@@ -55,6 +55,7 @@ I/O redirection
 		less
 		head, tail
 		sort, uniq
+		mkfifo
 
 advanced scripting
 	script files and shebang
