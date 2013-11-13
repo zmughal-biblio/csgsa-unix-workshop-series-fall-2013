@@ -1,114 +1,120 @@
-filesystem
-	concepts
-		files, directories, hard links, symlinks
-		inodes
-	commands
-		echo "Hello, world!"
-		ls
-		cd
-			pwd
-		mkdir
-		touch
-		cat
-		ln
-		cp
-		mv
-		rm, rmdir
-		df, du
-	man pages
-	users/groups + permissions
-		root user
-			su
-			sudo
-		whoami, w
-		chmod
-		chown
+week 1
+	filesystem
+		concepts
+			files, directories, hard links, symlinks
+			inodes
+		commands
+			echo "Hello, world!"
+			ls
+			cd
+				pwd
+			mkdir
+			touch
+			cat
+			ln
+			cp
+			mv
+			rm, rmdir
+			df, du
+		doc
+			man pages
+			help
+			--help
+			long options / short options
+		users/groups + permissions
+			root user
+				su
+				sudo
+			whoami, w
+			chmod
+			chown
+			groups
+	processes
+		foreground/background
+		job control
+			Ctrl-Z
+			fg
+			bg
+		exit values
+			echo $?
+		multiple command sequence
+			;
+			&&
+			||
+		sleep
+		top
+		ps
+		kill
+		environment variables
+		$PATH
+			which
+		bash alias and .bashrc
+			: side-note, you can disable it by putting a \ in front of command
 
-processes
-	foreground/background
-	job control
-		Ctrl-Z
-		fg
-		bg
-	exit values
-		echo $?
-	multiple command sequence
-	sleep
-	top
-	ps
-	kill
-	environment variables
-	$PATH
-		which
-	bash alias and .bashrc
-		: side-note, you can disable it by putting a \ in front of command
+week 2
+	I/O redirection
+		file redirection
+			/dev/null
+		pipes
+			wc
+			grep
+				regex?
+			shuf
+			less
+			head, tail
+			sort, uniq
+			mkfifo
+	screen
+	advanced scripting
+		script files and shebang
+			: line continuation
+		readline shortcuts
+		command substitution
+			$()
+			backticks
+		process substitution
+			<()
+			>()
+		watch
+		pushd, popd
+		find
+			: -type
+			: -exec
+		locate
+		xargs
+		sed, awk, perl
+		ack
+		bash functions
+		if
+		 man [
+		while, for
+	network
+		ssh, sftp, sshfs
+		rsync
+			unison
+		wget
+		ping, dig
 
-I/O redirection
-	file redirection
-		/dev/null
-	pipes
-		wc
-		grep
-			regex?
-		shuf
-		less
-		head, tail
-		sort, uniq
-		mkfifo
-
-screen
-
-advanced scripting
-	script files and shebang
-		: line continuation
-	readline shortcuts
-	command substitution
-		$()
-		backticks
-	process substitution
-		<()
-		>()
-	watch
-	pushd, popd
-	find
-		: -type
-		: -exec
-	locate
-	xargs
-	sed, awk, perl
-	ack
-	bash functions
-	if
-	 man [
-	while, for
-
-network
-	ssh, sftp, sshfs
-	rsync
-		unison
-	wget
-	ping, dig
-
-vi
-
-development
-	compiler
-	man pages again [for libc/POSIX]
-	make
-	debugger
-	gprof
-	cflow
-	strace
-	lsof
-	ldd
-	git
-	diff
-	strings
-	file
-	od, xxd
-	valgrind
-	time
-	cscope, ctags
+week 3
+	vi
+	development
+		compiler
+		man pages again [for libc/POSIX]
+		make
+		debugger
+		gprof
+		cflow
+		strace
+		lsof
+		ldd
+		git
+		diff
+		strings
+		file
+		od, xxd
+		valgrind
+		time
+		cscope, ctags
 
 bonus
 	units

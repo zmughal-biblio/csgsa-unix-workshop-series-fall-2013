@@ -1,0 +1,7 @@
+#!/bin/sh
+
+mkdir ~/project
+cd ~/project
+touch test.c test.h note
+mkdir contrib
+touch contrib/data.txt

@@ -1,0 +1,215 @@
+%% vim:tw=66:spell:wrap:ft=tex
+\documentclass[%
+        hyperref={%
+                pdfauthor={Zakariyya Mughal},%
+                pdfpagemode={None},pdfpagelayout={SinglePage}}%
+        xcolor={x11names},%
+]{beamer}
+\usetheme{Warsaw}
+\usecolortheme{beaver}
+\usepackage{textcomp}
+\usepackage{fancyvrb}
+\usepackage{changepage}
+\usepackage{multicol}
+\usepackage{wasysym}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+
+\lstset{%basicstyle=\small\ttfamily,
+%numbers=left,
+%escapeinside=||
+}
+\newenvironment{indented}{\begin{adjustwidth}{1.5em}{}}{\end{adjustwidth}}
+
+\usepackage{tikz}
+\usetikzlibrary{snakes,arrows,shapes,automata}
+
+\title[Unix Basics]{Unix workshop: The Basics}
+\author{Zaki Mughal}
+\institute{Computational Biomedicine Lab\\University of Houston}
+\date{2013 Nov 13}
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+	\frametitle{Intro}
+	\begin{itemize}
+		\item Unix : operating system developed at Bell
+			Labs in 1969
+		\pause\item written in C and assembly \\
+			\pause \qquad portability
+		\pause\item response to Multics OS project
+		\pause \item developed officially for text processing \pause (but
+			really games)
+			% c.f. roff, <https://en.wikipedia.org/wiki/Space_Travel_(video_game)>
+		\pause \item multi-user (time-sharing)
+		\pause \item distributed to anyone that wanted it
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Later}
+	\begin{itemize}
+		\item BSD $\rightarrow$ FreeBSD, NetBSD, OpenBSD
+		\pause \item HP-UX, Solaris, AIX, Irix, Xenix
+		\pause \item \emph{Linux}
+		\pause \item Mac OS X
+	\end{itemize}
+
+	\pause POSIX, SUS --- standardisation of API and environment between
+	Unix systems
+\end{frame}
+
+\begin{frame}
+	\frametitle{Concepts}
+	\begin{itemize}
+		\item (almost) everything is a file
+		\item single tree (no concepts of multiple drives)
+		\item top is \texttt{/} (root directory)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Standard directories (where's the thing for that thing)}
+	% <https://en.wikipedia.org/wiki/Unix_directory_structure#Conventional_directory_layout>
+	% for Linux, see <https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard>
+	\begin{itemize}
+		\item /bin --- binaries essential for the system (used by everyone)
+		\item /sbin --- binaries for managing the system (usually for sysadmin)
+		\item /lib --- libraries used for /bin, /sbin
+		\pause \item /usr/bin, /usr/sbin, /usr/lib --- same as
+			above, but not system critical
+		\pause \item /usr/include --- header files (.h)
+		\pause \item /tmp --- temporary storage (cleaned up at boot)
+		\item /dev --- device files (tty0, lp0, hda)
+		\item /mnt --- other filesystems (another partition, hard drive, CD-rom)
+		\pause \item /home --- home directories of users \\
+			\pause \quad /home/user1 \\
+			       \quad /home/user2 \\
+			       \quad \ldots \\
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{. and ..}
+	\begin{itemize}
+		\item each directory has two filenames: \texttt{.}
+			and \texttt{..}
+		\pause \item \texttt{.} is the current directory
+		\pause \item \texttt{..} is the directory above the current directory
+	\end{itemize}
+
+	\pause e.g. \texttt{/usr/lib/.} is another name for \texttt{/usr/lib}
+
+	\pause and \texttt{/usr/lib/..} is another name for \texttt{/usr}
+\end{frame}
+
+\begin{frame}
+	\frametitle{The Prompt}
+	\begin{itemize}
+		\item command line interface
+		\item scriptable --- automation
+		\item short commands for fast entry
+		\item managed by a \emph{shell} \\
+			\quad (on Linux, we'll be using a shell called \texttt{bash})
+		\pause\item bash has tab-complete \pause --- please use it :-)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{echo}
+	\begin{lstlisting}
+	$ echo "Hello, world!"
+	Hello, world!
+	$
+	\end{lstlisting}
+	
+	echoes arguments to \texttt{stdout}
+
+	this is built-in to bash, but \texttt{/bin/echo} also exists
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{ls}
+	\begin{lstlisting}[escapeinside=||]
+	$ ls         # what's in the current directory?
+	test.c      test.h
+	note        contrib/
+	|\pause|$ ls contrib # what's in contrib/ ?
+	data.txt
+	$
+	\end{lstlisting}
+	\pause
+	list files and directories
+
+	options:
+	\begin{itemize}
+		\item -a : all files (including hidden files)
+		\item -l : long format (shows extra information)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{hidden files}
+	In Unix, hidden files are any files that begin with a dot.
+
+	e.g.
+	\begin{itemize}
+		\item .
+		\item ..
+		\item .bashrc
+		\item .vimrc
+		\item .git/
+	\end{itemize}
+
+	usually used for configuration
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{cd and pwd}
+	\begin{lstlisting}
+	$ cd contrib  # change directory
+	$ ls
+	data.txt
+	$ pwd         # path to working directory
+	/home/user1/project/contrib
+	$
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{mkdir}
+	\begin{lstlisting}[escapeinside=||]
+	$ cd ..  # go back up to /home/user1/project
+	|\pause|$ mkdir data
+	$ cd data
+	|\pause|$ ls
+	$ # it's empty
+	\end{lstlisting}
+
+	make a directory
+
+	\pause
+	options:
+	\begin{itemize}
+		\item -p : make any parents as well\\
+			\qquad\texttt{mkdir -p a/b/c}
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+	\frametitle{touch}
+	\begin{lstlisting}[escapeinside=||]
+	$ touch more_data.txt
+	|\pause|$ ls
+	more_data.txt
+	$
+	\end{lstlisting}
+
+	creates a file if it doesn't exist or updates timestamp of
+	file
+\end{frame}
+
+\end{document}
