@@ -1,4 +1,5 @@
-%% vim:tw=66:spell:wrap:ft=tex
+%% vim:tw=66:spell:wrap:ft=tex:fdm=marker
+% Preamble {{{
 \documentclass[%
         hyperref={%
                 pdfauthor={Zakariyya Mughal},%
@@ -28,10 +29,12 @@
 \author{Zaki Mughal}
 \institute{Computational Biomedicine Lab\\University of Houston}
 \date{2013 Nov 13}
+%}}}
 \begin{document}
 
 \frame{\titlepage}
-
+\section{Introduction}\frame{\insertsection}
+% intro {{{
 \begin{frame}
 	\frametitle{Intro}
 	\begin{itemize}
@@ -116,20 +119,23 @@
 		\pause\item bash has tab-complete \pause --- please use it :-)
 	\end{itemize}
 \end{frame}
-
+%}}}
+\section{Filesystem commands}\frame{\insertsection}
+%% echo {{{
 \begin{frame}[fragile]
 	\frametitle{echo}
-	\begin{lstlisting}
-	$ echo "Hello, world!"
-	Hello, world!
-	$
-	\end{lstlisting}
+	%\begin{lstlisting}
+	%$ echo "Hello, world!"
+	%Hello, world!
+	%$
+	%\end{lstlisting}
 	
 	echoes arguments to \texttt{stdout}
 
 	this is built-in to bash, but \texttt{/bin/echo} also exists
 \end{frame}
-
+%}}}
+% ls {{{
 \begin{frame}[fragile]
 	\frametitle{ls}
 	\begin{lstlisting}[escapeinside=||]
@@ -149,7 +155,8 @@
 		\item -l : long format (shows extra information)
 	\end{itemize}
 \end{frame}
-
+%}}}
+% hidden files {{{
 \begin{frame}
 	\frametitle{hidden files}
 	In Unix, hidden files are any files that begin with a dot.
@@ -165,7 +172,8 @@
 
 	usually used for configuration
 \end{frame}
-
+%}}}
+% cd, pwd {{{
 \begin{frame}[fragile]
 	\frametitle{cd and pwd}
 	\begin{lstlisting}
@@ -177,7 +185,8 @@
 	$
 	\end{lstlisting}
 \end{frame}
-
+%}}}
+% mkdir {{{
 \begin{frame}[fragile]
 	\frametitle{mkdir}
 	\begin{lstlisting}[escapeinside=||]
@@ -197,19 +206,204 @@
 			\qquad\texttt{mkdir -p a/b/c}
 	\end{itemize}
 \end{frame}
-
-
+%}}}
+% touch, redirection, cat {{{
 \begin{frame}[fragile]
-	\frametitle{touch}
+	\frametitle{touch, redirection, cat}
 	\begin{lstlisting}[escapeinside=||]
 	$ touch more_data.txt
 	|\pause|$ ls
 	more_data.txt
-	$
+	|\pause|$ cat more_data.txt # new file is empty
+	|\pause|$ echo "Some data" > more_data.txt
+	|\pause|$ cat more_data.txt
+	Some data
+	|\pause|$ echo "Extra data" > extra_data.txt
+	|\pause|$ ls
+	more_data.txt      extra_data.txt
 	\end{lstlisting}
 
-	creates a file if it doesn't exist or updates timestamp of
-	file
+	\pause \texttt{touch} creates a file if it doesn't exist or updates timestamp of file
+
+	\pause\texttt{cat} outputs contents of files \pause (Be careful with
+	binary files. They can mess up your terminal. Use
+	\texttt{reset} to fix that.)
 \end{frame}
+%}}}
+% cp, mv {{{
+\begin{frame}[fragile]
+	\frametitle{cp, mv}
+	\begin{lstlisting}[escapeinside=||]
+	$ cp more_data.txt more_data.txt.old
+	# copy file
+	|\pause|$ ls
+	more_data.txt   extra_data.txt    more_data.txt.old
+	|\pause|$ mv extra_data.txt more_data.txt.old
+	# move/rename file
+	|\pause|$ ls
+	more_data.txt   more_data.txt.old
+	\end{lstlisting}
+
+	\pause
+	options for \texttt{cp}:
+	\begin{itemize}
+		\item -p : preserve timestamp
+		\item -r, -R : recursively copy (needed for directories)
+	\end{itemize}
+
+	My own habit for copying directories is to use \texttt{cp~-puvR}.
+\end{frame}
+%}}}
+% rm {{{
+\begin{frame}[fragile]
+	\frametitle{rm}
+	\begin{lstlisting}[escapeinside=||]
+	$ cd ..
+	|\pause|$ ls
+	test.c      test.h
+	note        contrib/
+	data/
+	|\pause|$ rm note
+	|\pause|$ ls
+	test.c      test.h
+	contrib/    data/
+	\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{rm}
+	\begin{lstlisting}[escapeinside=||]
+	|\pause|$ rm data/*
+	# use wildcard to remove all files inside
+	$ ls data
+	$ rmdir data # remove empty directory
+	$ ls
+	test.c      test.h     contrib/
+	|\pause|$ rm -R contrib
+	|\pause|$ ls
+	test.c      test.h
+	\end{lstlisting}
+
+	\pause
+	options for \texttt{rm}:
+	\begin{itemize}
+		\item -r, -R : recursively delete (needed for directories)
+	\end{itemize}
+
+	My own habit for copying directories is to use \texttt{cp~-puvR}.
+\end{frame}
+%}}}
+% du, df {{{
+\begin{frame}[fragile]
+	\frametitle{du, df}
+	\begin{lstlisting}[escapeinside=||]
+	$ du
+	[|\ldots| outputs file sizes
+	 for the current directory |\ldots| ]
+	$ df
+	[|\ldots| outputs disk info |\ldots| ]
+	\end{lstlisting}
+\end{frame}
+%}}}
+
+\section{Documentation}\frame{\insertsection}
+% man pages {{{
+\begin{frame}[fragile]
+	\frametitle{man}
+	\begin{lstlisting}[escapeinside=||]
+	$ man ls
+	[ documentation for ls ]
+	$ man printf
+	[ documentation for the printf command ]
+	$ man 3 printf
+	[ documentation for printf() in stdio.h ]
+	$ man man
+	\end{lstlisting}
+	\pause
+	man pages have a standard layout to make navigating them
+	easier
+
+	\pause Some commands are shell built-ins. Use \texttt{help} to
+	see the documentation for these
+\end{frame}
+%}}}
+% conventions {{{
+\begin{frame}[fragile]
+	\frametitle{Conventions}
+	\begin{lstlisting}[escapeinside=||]
+	$ ls -a    # short option
+	|\pause|$ ls -la   # short options can be combined
+	|\pause|$ ls -l -a # or separate
+	|\pause|$ ls --all # long options have two hyphens
+	|\pause|$ ls --all --full-time # must be separate
+	\end{lstlisting}
+\end{frame}
+%}}}
+
+\section{Access control}\frame{\insertsection}
+\begin{frame}
+	\frametitle{Users}
+	\begin{itemize}
+		\item root user (admin)
+		\pause\item su, sudo (change user)
+		\pause\item whoami (who is the current user?)
+		\pause\item w  (who is logged in?)
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{Groups}
+	\begin{itemize}
+		\item \texttt{groups} (get the groups of a user)
+	\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Permissions}
+	\begin{itemize}
+		\item Each file is owned by a single user and
+			a single group
+		\pause\item shown in \texttt{ls~-l} listing
+		\pause\item we can set the group that a file belongs to
+		\begin{lstlisting}[escapeinside=||]
+		$ chgrp mygroup project.txt
+		\end{lstlisting}
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{Permissions}
+	\begin{itemize}
+		\item Three kinds of permissions
+			\begin{itemize}
+				\item r --- read
+				\item w --- write
+				\item x --- execute
+			\end{itemize}
+		\pause\item we can set these settings for the
+			owner of the file, the group the file is
+			in, and anyone else
+	\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Permissions}
+	\begin{lstlisting}[escapeinside=||]
+	$ ls -l this_needs_to_execute
+	-r-------- 1 user1 group1  this_needs_to_execute
+	|\pause|$ chmod u+x this_needs_to_execute  # user
+	|\pause|$ chmod g+rx this_needs_to_execute # group
+	|\pause|$ chmod o+rx this_needs_to_execute # other
+	|\pause|$ ls -l this_needs_to_execute
+	-r-xr-xr-x 1 user1 group1  this_needs_to_execute
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Next time}
+	\begin{itemize}
+		\item processes
+		\item more on I/O redirection
+		\item screen (terminal multiplexer)
+		\item advanced scripting
+		\item network
+	\end{itemize}
+\end{frame}
+
 
 \end{document}
