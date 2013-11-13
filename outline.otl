@@ -40,7 +40,6 @@ processes
 	environment variables
 	$PATH
 		which
-	screen
 	bash alias and .bashrc
 		: side-note, you can disable it by putting a \ in front of command
 
@@ -56,6 +55,8 @@ I/O redirection
 		head, tail
 		sort, uniq
 		mkfifo
+
+screen
 
 advanced scripting
 	script files and shebang
