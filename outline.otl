@@ -16,19 +16,21 @@ week 1
 			mv
 			rm, rmdir
 			df, du
-		doc
-			man pages
-			help
-			--help
-			long options / short options
-		users/groups + permissions
-			root user
-				su
-				sudo
-			whoami, w
-			chmod
-			chown
-			groups
+	doc
+		man pages
+		help
+		--help
+		long options / short options
+	users/groups + permissions
+		root user
+			su
+			sudo
+		whoami, w
+		chmod
+		chown
+		groups
+
+week 2
 	processes
 		foreground/background
 		job control
@@ -50,8 +52,6 @@ week 1
 			which
 		bash alias and .bashrc
 			: side-note, you can disable it by putting a \ in front of command
-
-week 2
 	I/O redirection
 		file redirection
 			/dev/null
