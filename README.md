@@ -16,3 +16,4 @@ biomedical image analysis. He did his B.S. in biomedical engineering
 (neuroengineering) from UH. He is interested in medical applications of
 computational science.
 
+[Facebook event](https://www.facebook.com/events/311861308952282/).
