@@ -70,7 +70,6 @@ week 2
 	advanced scripting
 		script files and shebang
 			: line continuation
-		readline shortcuts
 		command substitution
 			$()
 			backticks
@@ -78,15 +77,9 @@ week 2
 			<()
 			>()
 		watch
-		pushd, popd
 		find
 			: -type
 			: -exec
-		locate
-		xargs
-		sed, awk, perl
-		ack
-		bash functions
 		if
 		 man [
 		while, for
@@ -95,6 +88,13 @@ week 2
 		rsync
 			unison
 		wget
+	don't know where to put these
+		readline shortcuts
+		pushd, popd
+		locate
+		sed, awk, perl
+		ack
+		bash functions
 		ping, dig
 
 week 3
@@ -133,6 +133,7 @@ bonus
 	pdftotext
 	gnuplot
 	timeout
+
 
 stuff that may be outside scope
 	dd
