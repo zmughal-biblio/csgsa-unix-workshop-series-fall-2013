@@ -73,6 +73,9 @@
 		\pause\item \texttt{fg} (and foreground)
 		\pause\item \texttt{jobs} (and see the processes under
 			job control) (fg \%1, bg \%2)
+		\pause\item add an ampersand at the end to run in
+			background
+		\item \texttt{ls \&}
 	\end{itemize}
 \end{frame}
 \begin{frame}
@@ -189,14 +192,31 @@
 
 % I/O Redirection {{{
 \section{I/O redirection}\frame{\insertsection}
-\begin{frame}
+\begin{frame}[fragile]
 	\frametitle{File redirection}
 	\begin{itemize}
 		\item which ls \&\& echo "ls is available"
 		\pause\item extra output
 		\pause\item which ls > /dev/null \&\& echo "ls is available"
 		\pause\item stdout goes to /dev/null
+		\pause\item redirect stderr using \texttt{2>}
 	\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\begin{lstlisting}
+	# see error on stderr
+	ls not_such_file *.txt  > /dev/null
+	# versus stdout
+	ls not_such_file *.txt 2> /dev/null
+
+	# run in background
+	# but send stdout and # stderr
+	# to /dev/null
+	ls 2> /dev/null > /dev/null &
+
+	# or even cleaner, send stderr to stdout
+	ls 2>&1 > /dev/null &
+\end{lstlisting}
 \end{frame}
 \begin{frame}
 	\frametitle{Back to cat}
