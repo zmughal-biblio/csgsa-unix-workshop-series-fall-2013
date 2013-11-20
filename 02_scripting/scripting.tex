@@ -48,6 +48,404 @@
 		\item network
 	\end{itemize}
 \end{frame}
+% Processes {{{
+\section{Processes}\frame{\insertsection}
+\begin{frame}
+	\frametitle{Concepts}
+	\begin{itemize}
+		\item process ID (PID) --- associated with each
+			process
+		\item \texttt{init} --- first process that starts when you
+			boot (PID: 1)
+		\item \texttt{pstree} --- see tree of processes
+			(\texttt{fork}ed off)
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{Job control}
+	\begin{itemize}
+		\item when you run a process it is in \emph{foreground}
+		\item Ctrl+C --- will interrupt the process
+		\item Ctrl+Z --- will suspend the process
+		\pause\item these are shell functions
+		\pause\item \texttt{bg} (shell builtin to background
+			process)
+		\pause\item \texttt{fg} (and foreground)
+		\pause\item \texttt{jobs} (and see the processes under
+			job control) (fg \%1, bg \%2)
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{pgrep}
+	\begin{itemize}
+		\item you can find the process ID using:
+		\item \texttt{ps} (my processes in this terminal)
+		\item \texttt{ps -u} (my processes)
+		\item \texttt{ps -elf} (everyone's processes)
+		\pause\item \texttt{pgrep}
+		\item \texttt{pgrep -lf}
+		\item the name will make sense more sense in a bit
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{Signals}
+	\begin{itemize}
+		\item internally, they send signals to the process
+		\item Ctrl+C --- SIGINT
+		\item Ctrl+Z --- SIGTSTP
+		\pause\item \texttt{man 7 signal \# to find out more}
+		\item also read \url{http://linusakesson.net/programming/tty/}
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{Signals}
+	\begin{itemize}
+		\item you can send signals using \texttt{kill}
+		\pause\item more types of signals
+		\pause\item SIGTERM, SIGKILL \pause (SIGKILL can not be caught by process)
+		\pause\item numbers associated (\texttt{kill -l})
+		\pause\item SIGSEGV
+		\item	\texttt{int main() \{ char* a = 0; printf(*a); return 0; \}}
+					
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{Signals using kill}
+	\begin{itemize}
+		\item kill [pid] \# default to send SIGTERM (15)
+		\pause\item kill -TERM [pid] \# same as default
+		\pause\item \texttt{kill -9 [pid]} \# send SIGKILL (DANGER)
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{Exit status}
+	\begin{itemize}
+		\item what happens when I kill?
+		\pause\item \texttt{echo \$?}
+		\pause\item 0 indicates success \pause (int main \{ \ldots return 0; \} ?)
+			\pause (\texttt{return EXIT\_SUCCESS}, \texttt{return EXIT\_FAILURE})
+		\pause\item \texttt{\$?} is a environment variable (more later)
+		\pause\item after \texttt{kill -TERM}, we get 143
+		\pause\item 128 + 15 (the number for SIGTERM)
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{Multiple commands}
+	\begin{itemize}
+		\item \texttt{cat file1 ; cat file2}
+		\pause\item these could fail (file1 does not exist)
 
+		\pause\item \texttt{cat file1 \&\& cat file2}
+		\pause\item only run when the first is successful
+
+		\pause\item \texttt{cat file1 || echo "could not cat!"}
+		\pause\item only run second when the first is NOT successful
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{Sleep}
+	\begin{itemize}
+		\item \texttt{date \&\& sleep 5m \&\& echo "Nap
+		time is over!" \&\& date }
+		\pause\item BONUS COMMAND: \texttt{date}
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{Where are all these binaries anyway?}
+	\begin{itemize}
+		\item \texttt{echo \$PATH}
+		\item another environment variable
+		\pause\item colon-separated paths
+		\item which ls
+		\item which vi
+		\item which -a matlab
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{Almost at scripting!}
+	\begin{itemize}
+		\item \texttt{vi \textasciitilde/.bashrc}
+		\item \texttt{alias ..='cd ..'}
+		\item \texttt{alias l='ls -CF'}
+		\item \texttt{alias c='cd'}
+		\item shortcuts!
+		\pause\item disable with a backslash:
+		\item \textbackslash{}ls
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{Almost at scripting!}
+	\begin{itemize}
+		\item you can set environment variables here
+		\item set the \$PATH and other environment variables
+		\item export PATH=~/script:\$PATH \# prepend
+		\item export EDITOR=vim
+		\item export PAGER=less
+		\pause\item speaking of paths, spaces are bad for scripting --- don't use spaces in your filenames
+	\end{itemize}
+\end{frame}
+%}}}
+
+% I/O Redirection {{{
+\section{I/O redirection}\frame{\insertsection}
+\begin{frame}
+	\frametitle{File redirection}
+	\begin{itemize}
+		\item which ls \&\& echo "ls is available"
+		\pause\item extra output
+		\pause\item which ls > /dev/null \&\& echo "ls is available"
+		\pause\item stdout goes to /dev/null
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{Back to cat}
+	\begin{itemize}
+		\item Remember \texttt{cat file}
+		\pause\item \texttt{cat}
+		\item read from stdin
+		\item \ldots
+		\pause\item hit Ctrl+D (sends EOF, zero-bytes left to
+			read)
+		\pause\item then outputs the stdin to stdout
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{Make every program a filter}
+	\begin{itemize}
+		\item \texttt{cat file} is equivalent to:
+		\item \texttt{cat < file}
+		\item many programs follow this principle
+		\pause\item \texttt{wc}
+		\item word count
+		\pause\item \texttt{wc -l < essay.txt}
+		\item how many lines?
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\frametitle{Make every program a filter}
+	\begin{itemize}
+		\item shuf (shuffle the files)
+		\item grep (match using regex)
+		\item less (navigate long output)
+		\item head, tail (see n lines of start/end of input)
+		\item sort
+		\item uniq (unique lines)
+	\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Pipes}
+	\begin{itemize}
+		\item instead of files, send output of one command
+			to the output of another
+		\item let's look at some examples:
+
+		\item \begin{lstlisting}
+			ls | grep -o '\.[a-z][^.]*$' | sort | uniq
+			\end{lstlisting}
+		\pause\item \begin{lstlisting}
+			ls | grep -o '\.[a-z][^.]*$' \
+				| sort | uniq \
+				| wc -l
+			\end{lstlisting}
+	\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Pipes}
+	\begin{itemize}
+		\item List all file extensions (starting with a--z)
+\begin{lstlisting}
+ls | grep -o '\.[a-z][^.]*$' | sort | uniq
+\end{lstlisting}
+		\pause\item How many of them?
+\begin{lstlisting}
+ls | grep -o '\.[a-z][^.]*$' \
+   | sort | uniq \
+   | wc -l
+\end{lstlisting}
+		\item we're using the backslash for line-continuation
+	\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Pipes}
+	\begin{itemize}
+		\item Which ones are there the most of?
+\begin{lstlisting}
+ls | grep -o '\.[a-z][^.]*$' \
+   | sort    | uniq -c \
+   | sort -n | tail
+\end{lstlisting}
+	\end{itemize}
+\end{frame}
+%}}}
+
+
+% Screen {{{
+\section{Screen}\frame{\insertsection}
+\begin{frame}
+	\begin{itemize}
+\item GNU Screen (you may have to install it)
+\item terminal multiplexer --- multiple terminals in one terminal
+\item persistent session
+\pause\item \texttt{screen -S session\_name}
+\item Ctrl+A (the command prefix)
+\item Ctrl+A a (actual Ctrl+A)
+\item Ctrl+A c (create a new window)
+\item Ctrl+A n (next window)
+\item Ctrl+A p (previous window)
+\item Ctrl+A d (detach)
+\item \texttt{screen -d -r session\_name \# reattach}
+\item Ctrl+A ? (help)
+	\end{itemize}
+\end{frame}
+\begin{frame}
+\begin{itemize}
+\item Ctrl+A S (splits into regions [horizontal])
+\item Ctrl+A Tab (move between regions)
+\item Ctrl+A | (splits into regions [vertical])
+
+\pause\item NOT Ctrl+A s !!!!
+\item that will stop flow control to the terminal
+\item \qquad	fix by doing Ctrl+A q
+\pause\item similar to Ctrl+S, Ctrl+q in terminal itself
+\item XOFF/XON, see \url{http://unix.stackexchange.com/questions/12107/}, \url{https://en.wikipedia.org/wiki/Software_flow_control}
+\end{itemize}
+\end{frame}
+%}}}
+
+% Scripting {{{
+\section{Scripting}\frame{\insertsection}
+\begin{frame}[fragile]
+	\begin{itemize}
+		\item Script files begin with the line (shebang)
+		\item
+\begin{lstlisting}
+#!/bin/sh
+\end{lstlisting}
+	\item chmod u+x myscript.sh \# make executable
+	\item ./myscript.sh \# run it
+	\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+	\begin{itemize}
+		\item we can put any of the commands we used
+			before
+		\item \texttt{count\_extensions.sh}
+		\item fc (open last command in editor)
+		\item Ctrl+X Ctrl+C (open current command in editor)
+	\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Command substitution}
+	\begin{itemize}
+		\item
+		\begin{lstlisting}
+			ls -l \$(which ls)
+		\end{lstlisting}
+		\item 
+		\begin{lstlisting}
+		ls -l `which ls` # backticks (same key as tilde on US QWERTY)
+		\end{lstlisting}
+	\item find the location of \texttt{ls} and give
+	\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Writing a more complex script}
+	\begin{itemize}
+		\item watch ls \# repeatedly run command
+		\pause\item write your own watch (well, slightly
+			modified)
+	\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Writing a more complex script}
+	\begin{lstlisting}[escapeinside=++]
+	#!/bin/sh
+	if ! which sleep clear > /dev/null; then
+	  # check that sleep and clear are in path
+	  echo "Require: sleep, clear"
+	  exit 1
+	fi
+	+\pause+while [ "$?" = 0 ]; do
+	  # man 1 test # (test for files, dirs, etc.)
+	  # run the args: "$1", "$2"
+	  "$@" \
+	     && sleep 2 \
+	     && clear # clear the screen
+	done
+	\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Managing lots of files}
+	\begin{lstlisting}
+	for i in `ls`; do
+	  echo "$i";
+	done
+	\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Managing lots of files}
+	\begin{lstlisting}
+	for i in `ls`; do
+	  if [ -f "$i" ] \
+	      && echo "$i" | grep -iq ".tex$"; then
+	    # check if it is a file
+	    # and that it ends in tex
+	    echo "Found a TeX file: $i";
+	  fi
+	done
+	\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Managing lots of files}
+	\begin{lstlisting}
+		find -type f -iname '*.tex'
+		# same but does it recursively
+	\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Managing lots of files}
+	\begin{lstlisting}
+		find -type f -iname '*.tex' \
+		  -exec echo "Found a TeX file: {}" \;
+	\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+	\frametitle{Managing lots of files}
+	\begin{lstlisting}
+		# the most robust way
+		# -print0 : null separated
+		find -type f -iname '*.tex' -print0 \
+		  | xargs -I{} -0 echo "Found a TeX file: {}"
+		# xargs takes stdin and passes it as an argument
+		# to a command
+	\end{lstlisting}
+\end{frame}
+
+			
+\begin{frame}
+	More info at the Advanced Bash-Scripting Guide: \url{http://tldp.org/LDP/abs/html/}
+\end{frame}
+%}}}
+
+% Network {{{
+\section{Network}\frame{\insertsection}
+\begin{frame}[fragile]
+	\begin{itemize}
+\item ssh, sftp --- remote terminal and download files
+\item \begin{lstlisting}
+		diff <(ssh FAR_AWAY ls ~/sw_projects) \
+		     <(ls ~/sw_projects)
+		# find out which files are different
+		# in a remote directory
+		# uses process substitution <() (mkfifo)
+		# + ssh
+		# + diff
+	\end{lstlisting}
+\pause\item sshfs --- mount remote computers as a file system
+\pause\item rsync, unison --- unidirectional and bidirectional backups/syncing
+\pause\item wget --- mirror FTP/HTTP
+	\end{itemize}
+\end{frame}
+%}}}
 
 \end{document}
