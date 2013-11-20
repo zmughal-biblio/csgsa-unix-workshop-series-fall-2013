@@ -53,6 +53,8 @@ week 2
 		bash alias and .bashrc
 			: side-note, you can disable it by putting a \ in front of command
 	I/O redirection
+		back to cat
+			Ctrl-d
 		file redirection
 			/dev/null
 		pipes
