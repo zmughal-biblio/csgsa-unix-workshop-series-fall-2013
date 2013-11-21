@@ -117,6 +117,7 @@ week 3
 		valgrind
 		time
 		cscope, ctags
+	graphviz
 
 bonus
 	units
