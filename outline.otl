@@ -88,14 +88,6 @@ week 2
 		rsync
 			unison
 		wget
-	don't know where to put these
-		readline shortcuts
-		pushd, popd
-		locate
-		sed, awk, perl
-		ack
-		bash functions
-		ping, dig
 
 week 3
 	vi
@@ -143,3 +135,11 @@ stuff that may be outside scope
 	tar, unzip, etc.
 	passwd
 	apt-get?
+	don't know where to put these
+		readline shortcuts
+		pushd, popd
+		locate
+		sed, awk, perl
+		ack
+		bash functions
+		ping, dig
