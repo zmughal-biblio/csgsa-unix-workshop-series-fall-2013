@@ -1,0 +1,74 @@
+%% vim:tw=66:spell:wrap:ft=tex:fdm=marker
+% Preamble {{{
+\documentclass[%
+        hyperref={%
+                pdfauthor={Zakariyya Mughal},%
+                pdfpagemode={None},pdfpagelayout={SinglePage}}%
+        xcolor={x11names},%
+]{beamer}
+\usetheme{Warsaw}
+\usecolortheme{beaver}
+\usepackage{textcomp}
+\usepackage{fancyvrb}
+\usepackage{changepage}
+\usepackage{multicol}
+\usepackage{wasysym}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+
+\lstset{%basicstyle=\small\ttfamily,
+%numbers=left,
+%escapeinside=||
+}
+\newenvironment{indented}{\begin{adjustwidth}{1.5em}{}}{\end{adjustwidth}}
+
+\usepackage{tikz}
+\usetikzlibrary{snakes,arrows,shapes,automata}
+
+\title[Unix Scripting]{Unix workshop: Development Tools}
+\author{Zaki Mughal}
+\institute{Computational Biomedicine Lab\\University of Houston}
+\date{2013 Nov 25}
+%}}}
+\begin{document}
+
+\frame{\titlepage}
+\begin{frame}
+	Slides are at \url{http://bit.ly/csgsa_unix_f2013}.
+\end{frame}
+\section{Introduction}\frame{\insertsection}
+
+\begin{frame}
+	\frametitle{This time}
+	\begin{itemize}
+		\item vi/vim
+		\item gdb debugger
+		\item system tracing
+		\item working with binaries and source code
+	\end{itemize}
+\end{frame}
+
+\section{vi editor (really vim)}\frame{\insertsection}
+
+\section{make}\frame{\insertsection}
+% setting the CFLAGS
+% dumping the database
+
+\section{gdb}\frame{\insertsection}
+% setting the CFLAGS to -g
+
+
+\section{system tracing}\frame{\insertsection}
+% time
+% strace
+% lsof
+
+
+\section{working with binaries}\frame{\insertsection}
+% strings
+% file
+% od, xxd
+
+
+
+\end{document}
